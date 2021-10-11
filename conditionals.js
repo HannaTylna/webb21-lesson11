@@ -21,17 +21,23 @@ if(age<13){
 }
 
 const currentWeather = "rainy";
+let weather;
 switch(currentWeather){
     case "rainy":
         console.log("Det kommer regna");
+        weather = 1;
         break;
     case "sunny":
         console.log("Det kommer vara soligt");
+        weather = 2;
         break;
     case "molnigt":
         console.log("Det kommer vara molnigt");
+        weather = 3;
         break;
     default: {
         console.log("Ogiltigt väder")
+        weather = 0;
     }
 }
+console.log(weather);
