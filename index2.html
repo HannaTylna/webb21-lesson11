@@ -8,42 +8,46 @@
         <div id="articleList"></div>
         <script>
             const url = "https://mock-data-api.firebaseio.com/news/articles.json";
-
+            const articleListElement = document.getElementById("articleList");
             
-            function renderArticleItem(articleItem){
-                console.log(articleItem)
-                
+            function renderArticleItem(articleItem) {
+
+                const articleItemElement = document.createElement("div");
+
+                const titleElement = document.createElement("h2");
+                const descriptionElement = document.createElement("p");
+                const imageElement = document.createElement("img");
+
+                titleElement.innerText = articleItem.title;
+                descriptionElement.innerText = articleItem.description;
+                imageElement.src = articleItem.urlToImage;
+                imageElement.alt = articleItem.title;
+                imageElement.width = "300";
+
+                const hr = document.createElement("hr");
+
+
+                articleItemElement.appendChild(imageElement);
+                articleItemElement.appendChild(titleElement);
+                articleItemElement.appendChild(descriptionElement);
+                articleItemElement.appendChild(hr);
+
+                articleListElement.appendChild(articleItemElement);
+
+
             }
-            function renderArticleList(articleList){
+
+            function renderArticleList(articleList) {
                 articleList.forEach(articleItem => {
                     renderArticleItem(articleItem)
-                    
-                });
+                })
             }
 
             fetch(url)
-            .then(res => res.json())
+            .then(response => response.json())
             .then(data => {
-                let output = '<h2>News</h2>';
-                data.forEach(item => {
-                    renderArticleList(articleList)
-                    /* output += `
-                    <div>
-                        <h3>${item.title}</h3>
-                        <img src='${item.urlToImage}' alt='${item.title}' width='400'>
-                        <p>${item.content}</p>
-                        <p>${item.description}</p>
-                        <p>${item.id}</p>
-                        <p>Publicerad: ${item.publishedAt}</p>
-                        <a href='${item.url} target='_blank' >Källa: ${item.source.name}</a>
-                        <hr>
-                    </div>
-                    `;
-                    document.getElementById("articleList").innerHTML = output; */
-                })
+                renderArticleList(data)
             })
-            
-
         </script>
     </body>
 </html>
